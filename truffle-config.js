@@ -39,7 +39,22 @@ module.exports = {
       network_id: 1,
       gasPrice: parseInt(process.env.LIVE_GAS_PRICE),
       from: process.env.LIVE_DEPLOYER_ADDRESS
+
+    },
+    bsc: {
+      provider: function() {
+        var keys = [process.env.BSC_DEPLOYER_PRIVATE_KEY];
+        if (process.env.BSC_POOL_OWNER_PRIVATE_KEY) keys.push(process.env.BSC_POOL_OWNER_PRIVATE_KEY);
+        if (process.env.BSC_UPGRADE_GOVERNANCE_OWNER_PRIVATE_KEY) keys.push(process.env.BSC_UPGRADE_GOVERNANCE_OWNER_PRIVATE_KEY);
+        return new HDWalletProvider(keys, process.env.BSC_WEB3_PROVIDER_URL);
+      },
+      network_id: 97,
+      gasPrice: parseInt(process.env.BSC_GAS_PRICE),
+      from: process.env.BSC_DEPLOYER_ADDRESS
+      
     }
+
+
   },
   compilers: {
     solc: {
@@ -51,5 +66,6 @@ module.exports = {
         }
       }
     }
-  }
+  },
+
 };
